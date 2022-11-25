@@ -14,16 +14,20 @@ header("Content-Type: text/html; charset=ISO-8859-1");
 
 <?php
 $servidor = $_SERVER["REMOTE_ADDR"];
-$conexao = mysql_connect($servidor,"aluno","aluno"); 
-mysql_select_db("prog2", $conexao);
-$consulta = mysql_query ("select * from tablivros") or die ("Erro consultando tablivros");
+// $conexao = mysql_connect($servidor,"aluno","aluno"); 
+$conexao = mysqli_connect($servidor,"aluno","aluno","prog2");
+// mysql_select_db("prog2", $conexao);
+mysqli_select_db($conexao,"prog2");
+// $consulta = mysql_query ("select * from tablivros") or die ("Erro consultando tablivros");
+$consulta = mysqli_query ($conexao,"select * from tablivros") or die ("Erro consultando tablivros");
 $autor_id = array(); // Associa nomes de autores com seus ids
 $autor = array(); 
 $livro = array();
 $escreveu = array ();
 $nidautor = 0;
 for ($idlivro = 1; 
-    ($linha = mysql_fetch_row($consulta)); $idlivro++) {
+    // ($linha = mysql_fetch_row($consulta)); $idlivro++) {
+    ($linha = mysqli_fetch_row($consulta)); $idlivro++) {
     list($titulo,$nomeautor,$genero,$ano)=$linha;
     if (!isset ($autor_id[$nomeautor])) {
 	$nidautor++;
@@ -40,7 +44,8 @@ foreach ($livro as $row) {
     list($idlivro,$titulo,$exemplares,$genero,$ano) = $row;
     $consulta = "insert into livro value($idlivro,\"$titulo\",$exemplares,\"$genero\",$ano)";
     echo "$consulta<br>";
-    mysql_query ($consulta) or die ("Erro inserindo livro");
+    // mysql_query ($consulta) or die ("Erro inserindo livro");
+    mysqli_query ($conexao,$consulta) or die ("Erro inserindo livro");
 }
 
 echo "Inserindo autores <br>";
@@ -48,7 +53,8 @@ foreach ($autor as $row) {
     list ($id,$nome)=$row;
     $consulta = "insert into autor value($id,\"$nome\")";
     echo "$consulta<br>";
-    mysql_query ($consulta) or die ("Erro inserindo autor");
+    // mysql_query ($consulta) or die ("Erro inserindo autor");
+    mysqli_query ($conexao,$consulta) or die ("Erro inserindo autor");
 }
 
 echo "Inserindo escreveu <br>";
@@ -56,7 +62,8 @@ foreach ($escreveu as $row) {
     list ($idlivro,$idautor)=$row;
     $consulta = "insert into escreveu value($idlivro,$idautor)";
     echo "$consulta<br>";
-    mysql_query ($consulta) or die ("Erro inserindo escreveu");
+    // mysql_query ($consulta) or die ("Erro inserindo escreveu");
+    mysqli_query ($conexao,$consulta) or die ("Erro inserindo escreveu");
 }
 
 ?>

@@ -15,13 +15,15 @@ if (isset ($_POST["enviar_busca_livro"])) {
     $resultado = busca_livro ($_POST['titulo'], $_POST['autor'], 
 			      $_POST['genero'], $_POST['ano']);
     // Algum resultado?
-    if (mysql_num_rows ($resultado) > 0) {
+    // if (mysql_num_rows ($resultado) > 0) {
+	if (mysqli_num_rows ($resultado) > 0) {
 	// Sim, escrevo sob a forma de tabela
 	echo "<table class='tabelabusca'>\n";
 	linha_tabela (array('Título', 'Autor', 'Gênero', 'Ano'), true);
 	// Titulo de cada livro é formatado sob a forma de um link com este padrão
 	$link = "<a href='index.php?acao=cadastrarlivro&id=%d'>%s</a>";
-	while ($livro = mysql_fetch_array ($resultado)) {
+	// while ($livro = mysql_fetch_array ($resultado)) {
+	while ($livro = mysqli_fetch_array ($resultado)) {
 	    $livro_autores = new livro_autores;
 	    $livro_autores->busca_idlivro($livro['id']);
 	    $linha = array ();

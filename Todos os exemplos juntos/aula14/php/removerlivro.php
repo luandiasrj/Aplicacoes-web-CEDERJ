@@ -21,16 +21,20 @@ if (isset ($_GET['id'])) {
 	$livro_autores->exibe();
         // Livro está na lista de algum usuário que o solicitou?
 	$consulta = "select * from solicitacao where idlivro=".$idlivro;
-	$resultado = mysql_query($consulta);
+	// $resultado = mysql_query($consulta);
+	$resultado = mysqli_query($conexao, $consulta);
 	// Algum resultado?
-	if (mysql_num_rows($resultado) > 0) {
+	// if (mysql_num_rows($resultado) > 0) {
+	if ($resultado->num_rows > 0) {	   
 	   msg_erro ("Livro não pode ser removido, porque foi solicitado");
 	} else {
 	    // Livro está na lista de emprestimos?
 	    $consulta = "select * from emprestimo where idlivro=".$idlivro;
-	    $resultado = mysql_query($consulta);
+	    // $resultado = mysql_query($consulta);
+		$resultado = mysqli_query($conexao, $consulta);
 	    // Algum resultado?
-	    if (mysql_num_rows($resultado) > 0) {
+	    // if (mysql_num_rows($resultado) > 0) {
+		if ($resultado->num_rows > 0) {
 	       msg_erro ("Livro não pode ser removido, porque está emprestado");
 	    } else {
 	        // Exibo o livro a ser removido
@@ -55,13 +59,15 @@ elseif (isset ($_POST["enviar_busca_livro"])) {
     $resultado = busca_livro ($_POST['titulo'], $_POST['autor'], 
 			      $_POST['genero'], $_POST['ano']);
     // Algum resultado?
-    if (mysql_num_rows ($resultado) > 0) {
+    // if (mysql_num_rows ($resultado) > 0) {
+	if ($resultado->num_rows > 0) {
 	// Sim, escrevo sob a forma de tabela
 	echo "<table class='tabelabusca'>\n";
 	linha_tabela (array('Título', 'Autor', 'Gênero', 'Ano'), true);
 	// Titulo de cada livro é formatado sob a forma de um link com este padrão
 	$link = "<a href='index.php?acao=removerlivro&id=%d'>%s</a>";
-	while ($livro = mysql_fetch_array ($resultado)) {
+	// while ($livro = mysql_fetch_array ($resultado)) {
+	while ($livro = mysqli_fetch_array ($resultado)) {
 	    $livro_autores = new livro_autores;
 	    $livro_autores->busca_idlivro($livro['id']);
 	    $linha = array ();

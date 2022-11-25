@@ -46,7 +46,12 @@ if (isset ($_POST['enviar_cadastra_livro']) && !$erros) {
     // a primeira exibição do formulário de cadastramento.
     
     // Descubro quantos autores o livro tem ate o momento.
-    $n = count($livro_autores->autores);
+    if (isset ($livro_autores->autores)) { // Condicional para evitar erro fatal se nao houver autores
+    $n = count ($livro_autores->autores);
+    }
+    else { 
+        $n = 0;
+    }
     if (isset ($_POST['enviar_remove_autor'])) {
 	// Remover o último autor
 	if ($n>1) unset ($livro_autores->autores[$n-1]);
@@ -62,7 +67,10 @@ if (isset ($_POST['enviar_cadastra_livro']) && !$erros) {
     }
     // Preparo o formulario atualizado
     $array = array();
-    $livro_autores->atribui_a_array ($array);
+    // Atribui os autores do livro
+    if (isset ($livro_autores->autores)) { // Condicional para evitar erro fatal se nao houver autores
+    $livro_autores->atribui_a_array ($array);  
+    }
     $acao = "index.php?acao=cadastrarlivro";
     if (isset ($_GET['id'])) {
 	$acao .= "&id=".$_GET['id'];

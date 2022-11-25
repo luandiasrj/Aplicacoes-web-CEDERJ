@@ -37,8 +37,9 @@ if (isset ($_GET['id'])) {
 		echo "<p>Dados de $usuario->nome foram atualizados </p><br>\n";
 	    } else {
 		msg_erro ("Erro ao atualizar usuário");
-		msg_erro (mysql_error());
-	    }
+		// msg_erro (mysql_error());
+		msg_erro(mysqli_error($conexao));
+		    }
 	    link_pagina_principal ();
 	} else {
 	    // Caso contrário, reapresento formulário com os erros indicados.

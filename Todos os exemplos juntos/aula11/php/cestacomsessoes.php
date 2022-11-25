@@ -29,14 +29,16 @@ $linhaTabela = <<<FIMLINHA
       </tr>
 FIMLINHA;
 
-define (LinhasPorPag, 5); 
+define ("LinhasPorPag", 5); 
 
 function formata_linhas_tabela ($consulta, $pagina,&$qtd) {
     $numLinha = $pagina * LinhasPorPag;
-    mysql_data_seek($consulta, $numLinha);
+    // mysql_data_seek($consulta, $numLinha);
+    mysqli_data_seek($consulta, $numLinha);
     global $linhaTabela;
     for ($n = 0; $n < LinhasPorPag && 
-         ($linha = mysql_fetch_array($consulta)); $n++) {
+         // ($linha = mysql_fetch_array($consulta)); $n++) {
+            ($linha = mysqli_fetch_array($consulta)); $n++) {
 	$descricao = $linha["descricao"];
 	$preco = $linha["preco"];
 	$id = $linha["id"];
@@ -61,9 +63,11 @@ function formata_botoes ($numPg, $pag) {
 }
 
 function formata_total ($consulta, $qtd) {
-    mysql_data_seek($consulta, 0);
+    // mysql_data_seek($consulta, 0);
+    mysqli_data_seek($consulta, 0);
     $total = 0;
-    while (($linha = mysql_fetch_array($consulta))) {
+    // while (($linha = mysql_fetch_array($consulta))) {
+    while (($linha = mysqli_fetch_array($consulta))) {
 	$id = $linha["id"];
 	$total += $linha["preco"] * $qtd[$id];
     }
@@ -95,11 +99,14 @@ function pega_quantidades () {
 
 
 $servidor = $_SERVER["REMOTE_ADDR"];
-$conexao = mysql_connect($servidor,"aluno","aluno"); 
-mysql_select_db("prog2", $conexao);
-$consulta = mysql_query ("select * from produto", $conexao);
+// $conexao = mysql_connect($servidor,"aluno","aluno"); 
+$conexao = mysqli_connect($servidor,"aluno","aluno", "prog2");
+// mysql_select_db("prog2", $conexao);
+// $consulta = mysql_query ("select * from produto", $conexao);
+$consulta = mysqli_query ($conexao, "select * from produto");
 
-$numPaginas = ceil(mysql_num_rows ($consulta)/LinhasPorPag);
+// $numPaginas = ceil(mysql_num_rows ($consulta)/LinhasPorPag);
+$numPaginas = ceil(mysqli_num_rows ($consulta)/LinhasPorPag);
 $qtd = pega_quantidades ();
 $pagina = pega_pagina ($numPaginas);
 
@@ -107,7 +114,8 @@ formata_linhas_tabela ($consulta, $pagina, $qtd);
 echo "</table>";
 formata_botoes ($numPaginas, $pagina);
 formata_total ($consulta, $qtd);
-mysql_close($conexao);
+// mysql_close($conexao);
+mysqli_close($conexao);
 ?>
 </form>
 </body>

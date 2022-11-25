@@ -18,6 +18,7 @@ if (isset ($_POST["enviar_usuario"])) {
     $usuario->atribui_de_array ($_POST);
     // Faço a crítica do formulário
     $erros = $usuario->erros();
+    if(!is_array($erros)) $erros = array(); // Evita erro no PHP 8.1 na conversão de não array para array
     // Alguns testes adicionais
     if ($usuario->login != '' && $usuario->login_existe() && 
 	$_SESSION["login"] != $usuario->login) {
@@ -34,7 +35,8 @@ if (isset ($_POST["enviar_usuario"])) {
 	    link_pagina_principal ();
 	} else {
 	    msg_erro ("Erro ao atualizar usuário");
-	    msg_erro (mysql_error());
+	    // msg_erro (mysql_error());
+        msg_erro ($conexao->error);
 	}
     } else {
 	// Caso contrário, reapresento formulário com os erros indicados.

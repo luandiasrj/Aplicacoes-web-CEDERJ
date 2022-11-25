@@ -4,7 +4,7 @@
 </head>
 <body bgcolor="#ffffff">
 <h1> Heran&ccedil;a </h1>
-<?
+<?php // Estava faltando o cabeçalho do PHP
   include "cont.inc";
   class ContGarrafas extends Contador
   {

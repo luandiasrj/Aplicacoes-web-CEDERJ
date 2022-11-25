@@ -23,12 +23,15 @@ class solicitacao extends tabela_bd
 	// na constante DIAS_POR_EMPRESTIMO
 	$devolucao = date ("Y-m-d", time()+DIAS_POR_EMPRESTIMO*24*60*60);
 	// removo e insiro
-	$resultado = mysql_query ("delete from solicitacao ".
+	// $resultado = mysql_query ("delete from solicitacao ".
+	global $conexao;
+	$resultado = mysqli_query($conexao, "delete from solicitacao ".
 		  	          "where idlivro=$this->idlivro ".
 			          "and idusuario=$this->idusuario " .
 				  "and hora='$this->hora'");
 	if (!$resultado) return false;
-	return mysql_query ("insert into emprestimo ".
+	// return mysql_query ("insert into emprestimo ".
+	return mysqli_query($conexao, "insert into emprestimo ".
 		         "values($this->idlivro, $this->idusuario, '$devolucao')");
     }
     
@@ -42,8 +45,11 @@ class solicitacao extends tabela_bd
 		    "	     where idlivro = $this->idlivro) ".
 		    "	  - (select exemplares from livro " .
 		    "        where id = $this->idlivro)";
- 	$resultado = mysql_query ($consulta);
-	$array = mysql_fetch_row($resultado);
+ 	// $resultado = mysql_query ($consulta);
+	global $conexao;
+	$resultado = mysqli_query ($conexao, $consulta);
+	// $array = mysql_fetch_row($resultado);
+	$array = mysqli_fetch_row($resultado);
 	$lugar = $array [0]+1;
 	if ($lugar<0) $lugar = 0;
 	return $lugar;
@@ -61,7 +67,8 @@ class solicitacao extends tabela_bd
 	echo "<tr><th rowspan=2>Livro:<th>Título<th>Autores</tr>\n";
 	echo "<tr><td>".$livro->livro->titulo."<td>".implode("<br>\n",$livro->autores())."</tr>\n";
 	echo "<tr><th>Hora da solicitação:<td colspan=2>";
-	echo strftime ("%e/%b/%Y, %T", strtotime($this->hora));
+	// echo strftime ("%e/%b/%Y, %T", strtotime($this->hora));
+	echo date("d/m/Y, H:i:s", strtotime($this->hora));
 	echo "</tr>\n";
 	echo "<tr><th>Situação:<td colspan=2>";
 	$lugar = $this->lugar_fila();
@@ -117,9 +124,12 @@ function busca_solicitacao ($nome='', $login='', $titulo='', $autor='')
 	}
     } 
     // Faço a consulta ordenando os resultados pela hora da solicitação
-    $resultado = mysql_query ($select.$from.$where." order by hora");
+    // $resultado = mysql_query ($select.$from.$where." order by hora");
+	global $conexao;
+	$resultado = mysqli_query ($conexao, $select.$from.$where." order by hora");
     $solicitacoes = array();
-    while ($array = mysql_fetch_array ($resultado)) {
+    // while ($array = mysql_fetch_array ($resultado)) {
+	while ($array = mysqli_fetch_array ($resultado)) {
 	$solicitacao = new solicitacao;
 	$solicitacao->atribui_de_array($array);
 	$solicitacoes[] = $solicitacao;

@@ -1,37 +1,43 @@
 <?php
-  include 'error.inc';  
+  include 'error.inc'; 
   function AtualizaDesconto($idCliente, $IdItem, $desc, $min, $con)
   {
      echo "idcliente = $idCliente, iditem = $IdItem, min = $min<br>";
      $ok = false;
-     // Lock todas as tabelas envolvidas nesta transaÁ„o
+     // Lock todas as tabelas envolvidas nesta transa√ß√£o
      $cons = "LOCK TABLES itens READ, compras WRITE, cliente READ";
-     if (!mysql_query($cons, $con))
+     // if (!mysql_query($cons, $con))     
+       if (!mysqli_query($con, $cons))
         ExibeErro();
-     echo "Tabelas est„o locked!<br>";
-     // Quanto o usu·rio gastou atÈ o momento?
+     echo "Tabelas est√£o locked!<br>";
+     // Quanto o usu√°rio gastou at√© o momento?
      $cons = "SELECT SUM(preco*qtde) FROM itens, compras, cliente WHERE cliente.id = compras.idCliente AND compras.IdItem = itens.IdItem AND compras.idItem =". $IdItem." AND cliente.id =".$idCliente;
-     if (!($result = mysql_query($cons, $con))) ExibeErro();
-     $row = mysql_fetch_array($result);
-     // A qtde comprada È maior do que um mÌnimo?
+     // if (!($result = mysql_query($cons, $con))) ExibeErro();
+       if (!($result = mysqli_query($con, $cons))) ExibeErro();
+     // $row = mysql_fetch_array($result);
+         $row = mysqli_fetch_array($result);
+     // A qtde comprada √© maior do que um m√≠nimo?
      echo "valor de preco*qtde = ".$row["SUM(preco*qtde)"]."<br>";
      if ($row["SUM(preco*qtde)"] > $min) // se sim, dar desconto
      {
         $cons = "UPDATE compras SET desconto =".$desc."WHERE idCliente =".$idCliente." AND IdItem = ".$IdItem;
-        if (!mysql_query($cons, $con)) ExibeErro();
+         // if (!mysql_query($cons, $con)) ExibeErro();
+             if (!mysqli_query($con, $cons)) ExibeErro();
         $ok = true;
      }
      $cons = "UNLOCK TABLES"; // Unlock tabelas
-     if (!mysql_query($cons, $con)) ExibeErro();
-     return $ok; // Retorna se desconto foi concedido ou n„o
+     // if (!mysql_query($cons, $con)) ExibeErro();
+         if (!mysqli_query($con, $cons)) ExibeErro();
+     return $ok; // Retorna se desconto foi concedido ou n√£o
   }  
 
 // MAIN -----
-  if (!($con = @ mysql_connect($_SERVER["REMOTE_ADDR"],"aluno","aluno")))
-     die("N„o pÙde conectar ao DB");
-  if (!mysql_select_db("prog2"))
-     ExibeErro();
-  // D· um desconto de $4.95 ao cliente 653 na compra do item #2, se gastou mais de $10 
+  // if (!($con = @ mysql_connect($_SERVER["REMOTE_ADDR"],"aluno","aluno")))
+     if(!($con = mysqli_connect($_SERVER["REMOTE_ADDR"],"aluno","aluno","prog2")))
+     die("N√£o pode conectar ao DB");
+  // if (!mysql_select_db("prog2"))
+  //   ExibeErro();
+  // D–± um desconto de $4.95 ao cliente 653 na compra do item #2, se gastou mais de $10 
   $desc = AtualizaDesconto(653, 2, 4.95, 10, $con);
 ?>
 <html>

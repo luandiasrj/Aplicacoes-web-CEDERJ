@@ -14,12 +14,12 @@
    {
      $result = $tabela * $cont;
 
-     // O contador é par?
+     // O contador Ã© par?
      if ($cont % 2 == 0)
       // Sim, escrever a linha em negrito
       echo "<br><b>$cont x $tabela = "."$result</b>";
      else
-      // Não, escrever a linha com fonte normal
+      // NÃ£o, escrever a linha com fonte normal
       echo "<br>$cont x $tabela = "."$result";
    }
  }

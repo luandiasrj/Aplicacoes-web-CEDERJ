@@ -5,7 +5,7 @@
 </head>
 <body>
 <h1> Exemplo de utiliza&ccedil;&atilde;o de classes e objetos </h1>
-<?
+<?php // Estava faltando o cabeçalho do PHP
   include "cont.inc";
   $Ocont = new contador;
   // comeca contador em 10

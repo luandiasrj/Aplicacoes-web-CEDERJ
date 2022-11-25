@@ -1,6 +1,6 @@
 <?php
   function ExibeErro()
   {
-     echo "Erro número: ".mysql_errno().": ".mysql_error();
+     echo "Erro nÃºmero: ".mysql_errno().": ".mysql_error();
   }
 ?>

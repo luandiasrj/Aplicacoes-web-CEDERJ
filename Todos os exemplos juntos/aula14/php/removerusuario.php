@@ -21,14 +21,19 @@ if (isset ($_GET['id'])) {
     if (isset ($_GET['confirma'])) {
 	// Sim, remoção foi confirmada.
 	// Tem solicitações? Estas devem ser removidas
-	$resultado = mysql_query("select * from solicitacao where idusuario = $id");
-	if ( mysql_num_rows($resultado) > 0 ) {
+	// $resultado = mysql_query("select * from solicitacao where idusuario = $id");
+
+	$resultado = mysqli_query($conexao, "select * from solicitacao where idusuario = $id");
+	// if ( mysql_num_rows($resultado) > 0 ) {
+	if ( mysqli_num_rows($resultado) > 0 ) {
 	    // remover solicitações do usuário
-	    mysql_query("delete from solicitacao where idusuario = $id");
+	    // mysql_query("delete from solicitacao where idusuario = $id");
+		mysqli_query($conexao, "delete from solicitacao where idusuario = $id");
 	    msg_erro ("Usuário tinha solicitações de empréstimo que foram removidas.");
 	}
 	// remover usuário
-	mysql_query("delete from usuario where id = $id");
+	// mysql_query("delete from usuario where id = $id");
+	mysqli_query($conexao, "delete from usuario where id = $id");
 	echo "Usuário foi removido com sucesso.";
     }
     else {
@@ -36,8 +41,10 @@ if (isset ($_GET['id'])) {
 	$usuario->exibe ();
 	// Usuário tem empréstimos? não pode ser removido
 	$emprestimos = "select * from emprestimo where idusuario = $id";
-	$resultado = mysql_query($emprestimos);
-	if ( $resultado && mysql_num_rows($resultado) > 0 ) { // usuário tem livros emprestados?
+	// $resultado = mysql_query($emprestimos);
+	$resultado = mysqli_query($conexao, $emprestimos);
+	// if ( $resultado && mysql_num_rows($resultado) > 0 ) { // usuário tem livros emprestados?
+	if ( $resultado && mysqli_num_rows($resultado) > 0 ) { // usuário tem livros emprestados?
 	    msg_erro ("Usuário está com livros emprestados. Não pode ser removido.");
 	}
 	else {

@@ -19,9 +19,11 @@ if ($livro_autores->busca_idlivro($idlivro)) {
 	$solicitacao=new solicitacao;
 	$solicitacao->idlivro = $idlivro;
 	$solicitacao->idusuario = $_SESSION['idusuario'];
-	$solicitacao->hora = strftime('%Y-%m-%d %H:%M:%S');
+	// $solicitacao->hora = strftime('%Y-%m-%d %H:%M:%S');
+	$solicitacao->hora = date('Y-m-d H:i:s');
 	if (!$solicitacao->inclui()) {
-	    echo mysql_error();
+	    // echo mysql_error();
+		echo $solicitacao->error;
 	    exit;
 	}
 	echo "<p> <b>Solicitação Confirmada</b> </p>\n";
@@ -41,7 +43,10 @@ if ($livro_autores->busca_idlivro($idlivro)) {
 		 "Deseja realizar uma reserva?</p>";
 	}
 	botao ("Sim", "index.php?acao=solicitar&confirma=1&id=$idlivro");
-	botao ("Não, Voltar", "javascript:history.back();");
+	// botao ("Não, Voltar", "javascript:history.back();");
+	botao ("Não, Voltar", "index.php?acao=buscar");
+	
+	
     }
 } 
 else {

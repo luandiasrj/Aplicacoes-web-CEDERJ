@@ -10,6 +10,6 @@ setcookie("acessos", $acessos, time()+600, "/");
 <html> 
   <head><title>Cookies</title></head> 
   <body> 
-  <h1> Esta p·gina foi acessada <?php echo $acessos; ?> vezes </h1>
+  <h1> Esta p√°gina foi acessada <?php echo $acessos; ?> vezes </h1>
   </body>
 </html>

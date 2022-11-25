@@ -14,8 +14,11 @@ class emprestimo extends tabela_bd
     // Calcula a multa pela devolução deste empréstimo caso 
     // seja feita hoje. Devolve 0 caso não haja multa.
     function multa () {
-	$resultado = mysql_query ("select datediff(curdate(),date('$this->datadevolucao'))");
-	$array = mysql_fetch_row($resultado);
+	// $resultado = mysql_query ("select datediff(curdate(),date('$this->datadevolucao'))");
+	global $conexao;
+	$resultado = mysqli_query ($conexao, "select datediff(curdate(),date('$this->datadevolucao'))");
+	// $array = mysql_fetch_row($resultado);
+	$array = mysqli_fetch_row($resultado);
 	$dias = $array[0];
 	if ($dias > 0) return $dias*MULTA_POR_DIA;
 	return 0;
@@ -25,7 +28,9 @@ class emprestimo extends tabela_bd
     // remoção deste registro da tabela 'emprestimo'. 
     // Retorna false caso haja erro ou o resultado da consulta.
     function devolve() {
-	return mysql_query ("delete from emprestimo ".
+	// return mysql_query ("delete from emprestimo ".
+	global $conexao;
+	return mysqli_query ($conexao, "delete from emprestimo ".
 		 	    "where idlivro=$this->idlivro ".
 			    "and idusuario=$this->idusuario");
     }
@@ -42,9 +47,10 @@ class emprestimo extends tabela_bd
 	echo "<tr><th rowspan=2>Usuário:<th>Nome<th>Login</tr>\n";
 	echo "<tr><td>$usuario->nome<td>$usuario->login</tr>\n";
 	echo "<tr><th rowspan=2>Livro:<th>Título<th>Autores</tr>\n";
-	echo "<tr><td>".$livro->livro->titulo."<td>".implode("<br>/n",$livro->autores())."</tr>\n";
+	echo "<tr><td>".$livro->livro->titulo."<td>".implode("<br>\n",$livro->autores())."</tr>\n";
 	echo "<tr><th>Data de devolução:<td colspan=2>";
-	echo strftime ("%e/%m/%Y", strtotime($this->datadevolucao));
+	// echo strftime ("%e/%m/%Y", strtotime($this->datadevolucao));
+	echo date("d/m/Y", strtotime($this->datadevolucao));
 	echo "</tr>\n";
 	if ($multa>0) {
 	    echo "<tr><th style='color: rgb(255, 0, 0)'>Multa por atraso:<td colspan=2>".
@@ -96,9 +102,12 @@ function busca_emprestimo ($nome='', $login='', $titulo='', $autor='')
 	}
     } 
     // Faço a consulta ordenando os resultados pela data de devolução
-    $resultado = mysql_query ($select.$from.$where." order by datadevolucao");
+    // $resultado = mysql_query ($select.$from.$where." order by datadevolucao");
+	global $conexao;
+	$resultado = mysqli_query ($conexao, $select.$from.$where." order by datadevolucao");
     $emprestimos = array();
-    while ($array = mysql_fetch_array ($resultado)) {
+    // while ($array = mysql_fetch_array ($resultado)) {
+	while ($array = mysqli_fetch_array ($resultado)) {
 	$emprestimo = new emprestimo;
 	$emprestimo->atribui_de_array($array);
 	$emprestimos[] = $emprestimo;

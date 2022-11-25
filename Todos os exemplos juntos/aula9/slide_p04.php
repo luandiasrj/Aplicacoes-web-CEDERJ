@@ -4,23 +4,26 @@
 </head>
 <body><pre>
 <?php
-  echo "Neste exemplo, quando vocÍ clicou no bot„o <abrir navegador>, uma tabela chamada cliente foi criada, com atributos: id, nome e endereco. Para repetir este exemplo, fora do contexto da aula, È necess·rio criar esta tabela manualmente no servidor mysql.\n\n";
-  // (1) abrir conex„o com mysql no servidor remoto ao PHP
-  $con = mysql_connect($_SERVER["REMOTE_ADDR"], "aluno", "aluno");
+  echo "Neste exemplo, quando voc√™ clicou no bot√£o <abrir navegador>, uma tabela chamada cliente foi criada, com atributos: id, nome e endereco. Para repetir este exemplo, fora do contexto da aula, √© necess√°rio criar esta tabela manualmente no servidor mysql.\n\n";
+  // (1) abrir conex√£o com mysql no servidor remoto ao PHP
+  // $con = mysql_connect($_SERVER["REMOTE_ADDR"], "aluno", "aluno");
+  $con = mysqli_connect($_SERVER["REMOTE_ADDR"], "aluno", "aluno","prog2");
   // selecionar banco de dados
-  mysql_select_db("prog2",$con);
+  // mysql_select_db("prog2",$con);
   // (2) consulta ao bd prog2 sobre tabela cliente
-  $res = mysql_query("SELECT * FROM cliente",$con);
+  // $res = mysql_query("SELECT * FROM cliente",$con);
+  $res = mysqli_query($con,"SELECT * FROM cliente");
   // (3) recupera linhas da tabela
-  while ($row = mysql_fetch_row($res))
+  while ($row = mysqli_fetch_array($res)) 
   {
       // (4) imprime valores de atributos
-      for ($i=0; $i < mysql_num_fields($res); $i++) 
+      for ($i=0; $i < mysqli_num_fields($res); $i++)
           echo $row[$i]." ";
       echo "\n";
   }
-  // (5) fechar conex„o
-  mysql_close($con);
+  // (5) fechar conex√£o
+  // mysql_close($con);
+  mysqli_close($con);
 ?>
 </pre></body>
 </html>

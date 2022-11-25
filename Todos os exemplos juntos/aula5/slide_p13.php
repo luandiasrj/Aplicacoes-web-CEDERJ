@@ -10,6 +10,7 @@
    function soma($array)
    {
       echo sizeof($array),"<br>";
+      $soma = 0; # Corrigido para não aparecer os notices de variável não inicializada
       for ($i=0; $i<sizeof($array); $i++)
       {
          $soma += $array[$i];

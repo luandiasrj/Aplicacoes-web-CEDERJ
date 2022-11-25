@@ -8,10 +8,13 @@ assegura_privilegio ('M');
 
 // Exibo empréstimos do usuario
 $consulta = "select * from emprestimo where idusuario = ". $_SESSION['idusuario'];
-$resultado = mysql_query ($consulta);
-if (mysql_num_rows($resultado)>0) {
+// $resultado = mysql_query ($consulta);
+$resultado = $conexao->query ($consulta);
+// if (mysql_num_rows($resultado)>0) {
+if ($resultado->num_rows>0) {
     echo "<h3> Empréstimos: </h3>\n";
-    while ($array = mysql_fetch_array($resultado)) {
+    // while ($array = mysql_fetch_array($resultado)) {
+	while ($array = mysqli_fetch_array($resultado)) {
 	$emprestimo = new emprestimo;
 	$emprestimo->atribui_de_array ($array);
 	$emprestimo->exibe();
@@ -20,10 +23,13 @@ if (mysql_num_rows($resultado)>0) {
 }
 // Exibo solicitações do usuário
 $consulta = "select * from solicitacao where idusuario = ". $_SESSION['idusuario'];
-$resultado = mysql_query ($consulta);
-if (mysql_num_rows($resultado)>0) {
+// $resultado = mysql_query ($consulta);
+$resultado = $conexao->query ($consulta);
+// if (mysql_num_rows($resultado)>0) {
+if ($resultado->num_rows>0) {
     echo "<h3> Solicitações: </h3>\n";
-    while ($array = mysql_fetch_array($resultado)) {
+    // while ($array = mysql_fetch_array($resultado)) {
+	while ($array = mysqli_fetch_array($resultado)) {
 	$solicitacao = new solicitacao;
 	$solicitacao->atribui_de_array ($array);
 	$solicitacao->exibe();

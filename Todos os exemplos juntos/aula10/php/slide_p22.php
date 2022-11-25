@@ -2,18 +2,18 @@
   if (!(isset($_POST["nome"]))) {
 ?>
 <html>
-<head><title>Informações para Cadastro</title></head>
+<head><title>InformaÃ§Ãµes para Cadastro</title></head>
 <body bgcolor="white">  
 <form method="post" action="slide_p22.php">
-<h1> Informações para Cadastro </h1>
-<h3>Por favor, entre com a informação solicitada para se cadastrar. Campos mostrados em <font color="red"> vermelho </font> são obrigatórios.</h3>
+<h1> InformaÃ§Ãµes para Cadastro </h1>
+<h3>Por favor, entre com a informaÃ§Ã£o solicitada para se cadastrar. Campos mostrados em <font color="red"> vermelho </font> sÃ£o obrigatÃ³rios.</h3>
 <table>
 <col span="1" align="right">
 <tr> <td><font color="red">Sobrenome:</font></td>
    <td><input type="text" name="sobrenome" size=50></td></tr>
 <tr> <td><font color="red">Nome:</font></td>
    <td><input type="text" name="nome" size=50></td></tr>
-<tr> <td><font color="red">Endereço:</font></td>
+<tr> <td><font color="red">EndereÃ§o:</font></td>
    <td><input type="text" name="endereco" size=50></td></tr>
 <tr> <td><font color="red">Cidade:</font></td>
    <td><input type="text" name="cidade" size=50></td></tr>
@@ -38,18 +38,19 @@
     if (empty($formVars["sobrenome"]))
         $errorString .= "\n<br>O campo sobrenome deve ser digitado.";  
     if (empty($formVars["endereco"]))
-        $errorString .= "\n<br>Você deve digitar pelo menos uma linha de endereço.";  
+        $errorString .= "\n<br>VocÃª deve digitar pelo menos uma linha de endereÃ§o.";  
     if (empty($formVars["cidade"]))
-        $errorString .= "\n<br>O campo cidade é obrigatório.";  
+        $errorString .= "\n<br>O campo cidade Ã© obrigatÃ³rio.";  
     if (empty($formVars["ddn"]))
-        $errorString .= "\n<br>Você deve prencher sua data de nascimento.";  
-    elseif (!ereg("^([0-9]{2})/([0-9]{2})/([0-9]{4})$", $formVars["ddn"], $partes))
-        $errorString .= "\n<br>A data não está no formato correto: DD/MM/YYYY";  
+        $errorString .= "\n<br>VocÃª deve prencher sua data de nascimento.";  
+    // elseif (!ereg("^([0-9]{2})/([0-9]{2})/([0-9]{4})$", $formVars["ddn"], $partes))
+      elseif (!preg_match("/^([0-9]{2})\/([0-9]{2})\/([0-9]{4})$/", $formVars["ddn"], $partes))
+        $errorString .= "\n<br>A data nÃ£o estÃ¡ no formato correto: DD/MM/YYYY";  
     if (empty($formVars["email"])) 
-        $errorString .= "\n<br>O campo email é obrigatório.";  
+        $errorString .= "\n<br>O campo email Ã© obrigatÃ³rio.";  
     if (!empty($errorString))
     {
-      // Há erros. Mostrar e sair.
+      // HÃ¡ erros. Mostrar e sair.
 ?>
      <html>
      <head><title>Erro no cadastramento</title></head>
@@ -63,21 +64,23 @@
       exit;
     }
 
-  // Se o script chegou aqui, é porque os dados foram recebidos e tratados com sucesso
+  // Se o script chegou aqui, Ã© porque os dados foram recebidos e tratados com sucesso
   // Terceira fase!
 
-  if (!($con = @ mysql_pconnect($_SERVER["REMOTE_ADDR"], "aluno", "aluno")))
-     die("Não pôde conectar ao BD");
+  // if (!($con = @ mysql_pconnect($_SERVER["REMOTE_ADDR"], "aluno", "aluno")))
+   if (!($con = @ mysqli_connect($_SERVER["REMOTE_ADDR"], "aluno", "aluno", "prog2")))
+     die("NÃ£o pÃ´de conectar ao BD");
 
-  if (!mysql_select_db("prog2", $con))
-     ExibeErro();
+  // if (!mysql_select_db("prog2", $con))
+  //   ExibeErro();
      
   // Formatar data de acordo com formato interno Mysql
   $ddn = " \"$partes[3]-$partes[2]-$partes[1]\"";
   
-  // Criar uma consulta com o dado do usuário 
+  // Criar uma consulta com o dado do usuÃ¡rio 
   $createTableCadastro = "create table if not exists cadastro (id int key auto_increment, sobrenome varchar(100), nome varchar(50), endereco varchar(100), cidade varchar(50), email varchar(80), ddn varchar(10))";
-  if (!(@mysql_query($createTableCadastro,$con))) 
+  // if (!(@mysql_query($createTableCadastro,$con))) 
+   if (!(@mysqli_query($con, $createTableCadastro)))
      ExibeErro();
   $consulta = "INSERT INTO cadastro
               set id = 0, " .
@@ -88,11 +91,13 @@
               "email = \"" . $formVars["email"] . "\", " .
               "ddn = $ddn";
   // Rodar a consulta
-  if (!(@ mysql_query ($consulta, $con)))
+  // if (!(@ mysql_query ($consulta, $con)))
+   if (!(@ mysqli_query ($con, $consulta)))
      ExibeErro();   
   // Id do novo membro
-  $ID = mysql_insert_id();  
-  // Redirecionar usuário
+  // $ID = mysql_insert_id();  
+   $ID = mysqli_insert_id($con);
+  // Redirecionar usuÃ¡rio
   header("Location: notificacao_cadastro.php?ID=$ID");
  } // end else
 ?>

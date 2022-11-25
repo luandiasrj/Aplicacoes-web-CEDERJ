@@ -5,8 +5,8 @@
 DROP TABLE IF EXISTS `produto`;
 CREATE TABLE `produto` (
   `id` int(11) NOT NULL auto_increment COMMENT 'Chave Primaria',
-  `descricao` varchar(30) NOT NULL COMMENT 'DescriÁ„o do Produto',
-  `preco` decimal(10,2) NOT NULL COMMENT 'PreÁo Unit·rio',
+  `descricao` varchar(30) NOT NULL COMMENT 'Descri√ß√£o do Produto',
+  `preco` decimal(10,2) NOT NULL COMMENT 'Pre√ßo Unit√°rio',
   PRIMARY KEY  (`id`)
 ) ENGINE=MyISAM DEFAULT CHARSET=latin1 AUTO_INCREMENT=13 ;
 
@@ -14,15 +14,15 @@ CREATE TABLE `produto` (
 -- Dumping data for table `produto`
 -- 
 
-INSERT INTO `produto` (`id`, `descricao`, `preco`) VALUES (1, 'Televis„o', 950.00),
+INSERT INTO `produto` (`id`, `descricao`, `preco`) VALUES (1, 'Televis√£o', 950.00),
 (2, 'Monitor CRT', 400.00),
 (3, 'Computador Pessoal A', 1500.00),
 (4, 'Computador Pessoal B', 2400.00),
 (5, 'Mouse Comum', 20.00),
-(6, 'Mouse ”tico', 60.00),
+(6, 'Mouse √ìtico', 60.00),
 (7, 'PDA marca A', 300.00),
 (8, 'PDA marca B', 950.00),
 (9, 'Alto-falantes', 100.00),
 (10, 'Telefone', 50.00),
 (11, 'Impressora Laser', 1200.00),
-(12, 'MemÛria Chaveiro 128 MB', 140.00);
+(12, 'Mem√≥ria Chaveiro 128 MB', 140.00);

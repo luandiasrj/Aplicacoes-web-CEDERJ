@@ -5,7 +5,7 @@
 <body>
 <p> Exemplo de utiliza&ccedil;&atilde;o de arrays, list <br>
 <?php
-   $tshirtinfo = array("Tam"=>"g","cor"=>"azul","preco"=>12.00);
+   $tshirtinfo = array("Tam"=>"g","cor"=>"azul","preco"=>12.00); # Código original com erro de sintaxe
    asort($tshirtinfo);
    list($primvalor,$segvalor) = $tshirtinfo;
    echo $primvalor,"<br>";

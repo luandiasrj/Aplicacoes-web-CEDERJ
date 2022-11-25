@@ -9,14 +9,14 @@
     $animal[] = "girafa";
     $animal[] = "elefante";
 
-    echo "Valor de $animal antes do sort<br>";
+    echo 'Valor de "$animal" antes do sort<br>';
     echo "<pre>";
     print_r($animal); 
     echo "</pre>";
 
     sort($animal);
 
-    echo "Valor de $animal depois do sort<br>";
+    echo 'Valor de "$animal" depois do sort<br>';
     echo "<pre>";
     print_r($animal); 
     echo "</pre>";

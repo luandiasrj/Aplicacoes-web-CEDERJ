@@ -41,10 +41,12 @@ class usuario extends tabela_bd_com_id
     // Retorna verdadeiro se inclusão bem-sucedida.
     // Efeito colateral: variável id tem o id da nova linha inserida na tabela.
     function inclui () {
+	global $conexao;
 	$this->encripta_senha();
 	$resultado = parent::inclui();
 	if (!$resultado) return false;
-	$this->id = mysql_insert_id();
+	// $this->id = mysql_insert_id();
+	$this->id = mysqli_insert_id($conexao);
 	return $resultado; 
     }
       
@@ -71,7 +73,9 @@ class usuario extends tabela_bd_com_id
     // dos campos incorretos e cujos valores são mensagens de erro.
     // Caso contrário, retorna false.
     function erros () {
-	$erros = array ();
+	$erros = array (); // Código original que não é utilizado
+	$erro = array (); 
+
 	if ($this->nome == '') {
 	    $erro['nome'] = 'Nome é obrigatório';
 	} elseif (count(explode(" ",$this->nome)) < 2) {
@@ -79,17 +83,20 @@ class usuario extends tabela_bd_com_id
 	}
 	if ($this->login == '') {
 	    $erro['login'] = 'Login é obrigatório';
-	} elseif (!ereg('^[A-Za-z]+[0-9A-Za-z]*$', $this->login)) {
+	// } elseif (!ereg('^[A-Za-z]+[0-9A-Za-z]*$', $this->login)) {
+	} elseif (!preg_match('/^[A-Za-z]+[0-9A-Za-z]*$/', $this->login)) {
 	    $erro['login'] = 'Login tem que ser alfanumérico e começar com letra';
 	}
 	if ($this->senha == '') {
 	    $erro['senha'] = 'Senha é obrigatória';
-	} elseif (!ereg('^[0-9A-Za-z]+$', $this->senha)) {
+	// } elseif (!ereg('^[0-9A-Za-z]+$', $this->senha)) {
+	} elseif (!preg_match('/^[0-9A-Za-z]+$/', $this->senha)) {
 	    $erro['senha'] = 'Senha tem que ser alfanumérica';
 	}
 	if ($this->email == '' ) { 
 	    $erro['email'] = 'E-mail é obrigatório';
-	} elseif (!ereg('^[0-9A-Za-z\\.\\-]+@([0-9A-Za-z]+\\.)*[0-9A-Za-z]+$', $this->email)) {
+	// } elseif (!ereg('^[0-9A-Za-z\\.\\-]+@([0-9A-Za-z]+\\.)*[0-9A-Za-z]+$', $this->email)) {
+	} elseif (!preg_match('/^[0-9A-Za-z\\.\\-]+@([0-9A-Za-z]+\\.)*[0-9A-Za-z]+$/', $this->email)) {
 	    $erro['email'] = 'E-mail inválido';
 	}
 	if ($this->endereco == '') { 
@@ -101,9 +108,11 @@ class usuario extends tabela_bd_com_id
 	if ($this->estado == '') { 
 	    $erro['estado'] = 'Estado é obrigatório';
 	}
-	if ($this->telefone != '' && !ereg('[0-9\\.\\-]+', $this->telefone)) { 
+	// if ($this->telefone != '' && !ereg('[0-9\\.\\-]+', $this->telefone)) { 
+	if ($this->telefone != '' && !preg_match('/[0-9\\.\\-]+/', $this->telefone)) {
 	    $erro['telefone'] = 'Telefone deve conter apenas algarismos e traços';
 	}
+	
 	if (count ($erro) > 0) return $erro;
 	return false;
     }

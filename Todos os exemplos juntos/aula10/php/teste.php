@@ -1,3 +1,3 @@
 <?php
-   echo "Usu·rio entrou com username: ".$_POST["username"]."<br>";
+   echo "Usu√°rio entrou com username: ".$_POST["username"]."<br>";
 ?>

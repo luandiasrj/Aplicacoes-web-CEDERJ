@@ -7,21 +7,21 @@
 <?php
     $moeda = array("BR"=>"Real","EUA"=>"Dolar");
 
-    echo "Valor de $moeda<br>";
+    echo 'Valor de $moeda<br>'; # Corrigido para não aparecer os notices de erro  de conversão de array para string
     echo "<pre>";
     print_r($moeda); 
     echo "</pre>";
 
     $moeda['EUA'] = "";
 
-    echo "Valor de $moeda depois de atribuir string nula a chave EUA<br>";
+    echo 'Valor de $moeda depois de atribuir string nula a chave EUA<br>';
     echo "<pre>";
     print_r($moeda); 
     echo "</pre>";
 
     unset($moeda['EUA']);   
 
-    echo "Valor de $moeda depois de fazer unset da chave EUA<br>";
+    echo 'Valor de $moeda depois de fazer unset da chave EUA<br>';
     echo "<pre>";
     print_r($moeda); 
     echo "</pre>";

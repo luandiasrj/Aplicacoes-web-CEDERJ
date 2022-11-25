@@ -22,6 +22,12 @@ $array_genero = array ("",
 // $acao = url que processa o formulário
 // $array = array com defaults para os campos
 function form_busca_livro ($acao,$default) {
+// Cria chaves em branco para o array $default
+if (!isset($default['titulo'])) $default['titulo'] = '';
+if (!isset($default['autor'])) $default['autor'] = '';
+if (!isset($default['genero'])) $default['genero'] = '';
+if (!isset($default['ano'])) $default['ano'] = '';
+
 ?>
 <form method="post" action="<?=$acao?>" name="formbuscalivro">
 <table class="formulario" border="0" cellpadding="5"
@@ -59,6 +65,22 @@ function form_busca_livro ($acao,$default) {
 // $array = array com defaults para os campos.
 // $erros = array com mensagens de erro provenientes de um preenchimento anterior.
 function form_cadastra_livro ($acao,$default,$erros=array()) {
+
+// Se $erros não tiver valores iniciais, cria chaves em branco
+if (!isset($default['titulo'])) $default['titulo'] = '';
+// iniciar a chave 'autor[0]' com um valor em branco
+if (!isset($default['autor'][0])) $default['autor'][0] = '';
+if (!isset($default['genero'])) $default['genero'] = '';
+if (!isset($default['ano'])) $default['ano'] = '';
+if (!isset($default['exemplares'])) $default['exemplares'] = '';
+
+// Se $default não tiver valores iniciais, cria chaves em branco
+if (!isset($erros['titulo'])) $erros['titulo'] = '';
+if (!isset($erros['autor'])) $erros['autor'] = '';
+if (!isset($erros['genero'])) $erros['genero'] = '';
+if (!isset($erros['ano'])) $erros['ano'] = '';
+if (!isset($erros['exemplares'])) $erros['exemplares'] = '';
+         
 ?>
 <form method="post" action="<?=$acao?>" name="formcadastralivro">
 <table class="formulario" border="0" cellpadding="5"
@@ -78,12 +100,13 @@ function form_cadastra_livro ($acao,$default,$erros=array()) {
 	for ($i = 1; isset($default['autor'][$i]); $i++) {
 	    echo "<input maxlength='100' size='50' name='autor[$i]' value='".$default['autor'][$i]."'>";
     	    echo "<br>\n";
-	}
+	}?>
+  <input name="enviar_adiciona_autor" value="Adicionar Autor" type="submit">
+  <?php
 	if (isset($default['autor'][1])) {
 	    echo '<input name="enviar_remove_autor" value="Remover Autor" type="submit">';
 	}
-	?>
-	<input name="enviar_adiciona_autor" value="Adicionar Autor" type="submit">
+	?>	
 	<input name="enviar_busca_autor" value="Buscar Autor" type="submit">
       </td>
     </tr>

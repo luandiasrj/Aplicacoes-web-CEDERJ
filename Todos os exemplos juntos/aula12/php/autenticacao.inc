@@ -7,14 +7,17 @@ function autentica ($nome, $senha, $conexao) {
     $senha_enc = crypt($senha, $sal);
     // Realizar consulta
     $consulta = "select * from usuarios where nome = '$nome' and senha = '$senha_enc'";
-    $result = mysql_query ($consulta, $conexao);
+    // $result = mysql_query ($consulta, $conexao);
+    $result = mysqli_query ($conexao, $consulta);
     // Retornar true somente se encontrado 1 nome
-    return (mysql_num_rows ($result) == 1);
+    // return (mysql_num_rows ($result) == 1);
+    return (mysqli_num_rows ($result) == 1);
   }
   return false;
 } 
 
 $servidor = $_SERVER["REMOTE_ADDR"];
-$conexao = mysql_connect($servidor,"aluno","aluno"); 
-mysql_select_db("prog2", $conexao);
+// $conexao = mysql_connect($servidor,"aluno","aluno"); 
+$conexao = mysqli_connect($servidor,"aluno","aluno","prog2");
+// mysql_select_db("prog2", $conexao);
 ?>

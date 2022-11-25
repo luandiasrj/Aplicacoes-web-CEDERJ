@@ -4,18 +4,24 @@
 </head>
 <body><pre>
 <?php
-  echo "Este exemplo, assim como o do slide 4, assume que a tabela cliente já foi criada\n\n";
-  // (1) abrir conexão com mysql no servidor remoto ao PHP
-  $con = mysql_connect($_SERVER["REMOTE_ADDR"], "aluno", "aluno");
-  // selecionar banco de dados
-  mysql_select_db("prog2",$con);
-  // (2) consulta ao bd prog2 sobre tabela cliente
-  $res = mysql_query("SELECT * FROM cliente",$con);
-  // (3) recupera linhas da tabela
- $row = mysql_fetch_array($res);
- echo $row["nome"];
-  // (5) fechar conexão
-  mysql_close($con);
+echo "Este exemplo, assim como o do slide 4, assume que a tabela cliente jÃ¡ foi criada\n\n";
+// (1) abrir conexÃ£o com mysql no servidor remoto ao PHP
+// $con = mysql_connect($_SERVER["REMOTE_ADDR"], "aluno", "aluno");
+$con = mysqli_connect($_SERVER["REMOTE_ADDR"], "aluno", "aluno", "prog2");
+// selecionar banco de dados
+// mysql_select_db("prog2",$con);
+// (2) consulta ao bd prog2 sobre tabela cliente
+// $res = mysql_query("SELECT * FROM cliente",$con);
+$res = mysqli_query($con, "SELECT * FROM cliente");
+// (3) recupera linhas da tabela
+// $row = mysql_fetch_array($res);
+$row = mysqli_fetch_array($res);
+
+echo $row["nome"];
+// (5) fechar conexÃ£o
+// mysql_close($con);
+mysqli_close($con);
+
 ?>
 </pre></body>
 </html>

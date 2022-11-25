@@ -22,6 +22,7 @@ header("Content-Type: text/html; charset=ISO-8859-1");
 	$usuario->atribui_de_array ($_POST);
 	$erros = $usuario->erros();
 	if ($usuario->login != '' && $usuario->login_existe()) {
+		if (!is_array($erros)) $erros = array();
 	    $erros ["login"] = "Este login já está sendo usado";
 	}
 	if (!$erros) {
@@ -29,7 +30,8 @@ header("Content-Type: text/html; charset=ISO-8859-1");
 		echo "Usuario $usuario->login incluído<br>";
 	    } else {
 		msg_erro ("Erro ao incluir usuário");
-		msg_erro (mysql_error());
+		// msg_erro (mysql_error());
+		msg_erro (mysqli_error($conexao));
 	    }
 	} else {
 	    form_usuario ("incluiusuario.php", $usuario, true, $erros);

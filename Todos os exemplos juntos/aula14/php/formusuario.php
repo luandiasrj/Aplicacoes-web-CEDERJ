@@ -38,6 +38,19 @@ $estados = array ("--"=>"--Escolha--",
 // $admin = booleano que diz se o campo "administrador" deve ser mostrado.
 // $erros = array com mensagens de erro provenientes de um preenchimento anterior.
 function form_usuario ($acao, $usuario, $admin=0, $erros=array()) {
+
+// verifica se $erros não tem as chaves necessárias e cria-as em branco
+if (!isset($erros['nome'])) $erros['nome'] = '';
+if (!isset($erros['login'])) $erros['login'] = '';
+if (!isset($erros['email'])) $erros['email'] = '';
+if (!isset($erros['senha'])) $erros['senha'] = '';
+if (!isset($erros['senha2'])) $erros['senha2'] = '';
+if (!isset($erros['estado'])) $erros['estado'] = '';
+if (!isset($erros['cidade'])) $erros['cidade'] = '';
+if (!isset($erros['endereco'])) $erros['endereco'] = '';
+if (!isset($erros['telefone'])) $erros['telefone'] = '';
+if (!isset($erros['privilegio'])) $erros['privilegio'] = '';
+
 ?>
 <form method="post" action="<?=$acao?>" name="formusuario">
 <table class="formulario" border="0" cellpadding="10" cellspacing="0">

@@ -36,11 +36,13 @@ elseif (isset($_POST["enviar_confirma_entrega"])) {
     // Processo todas as solicitações em ordem crescente de hora
     foreach ($solicitacoes as $indice=>$solicitacao) {
 	// Processo apenas as solicitações cujo "checkbox" de confirmação estava ligado
-	if ($_POST[$indice]) {
+	// if ($_POST[$indice]) {
+	if (isset($_POST[$indice])) {
 	    if (!$solicitacao->entrega()) {
 		// Um erro inesperado?
 		msg_erro ("Erro na realização da consulta.");
-		msg_erro (mysql_error());
+		// msg_erro (mysql_error());
+		msg_erro(mysqli_error($conexao));
 	    } else {
 		// Imprimo o empréstimo
 		$n_emprestimos++;

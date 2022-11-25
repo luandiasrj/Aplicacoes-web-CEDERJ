@@ -1,8 +1,8 @@
 #!/bin/bash
 
 # 1) Prepara o banco de dados
-# 2) Copia todos os arquivos necess·rios para o diretÛrio
-# public_html do usu·rio
+# 2) Copia todos os arquivos necess√°rios para o diret√≥rio
+# public_html do usu√°rio
 # 3) Inicia o navegador
 
 directory=$1

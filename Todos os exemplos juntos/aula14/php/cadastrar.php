@@ -7,6 +7,7 @@ if (isset ($_POST["enviar_usuario"])) {
     $usuario->atribui_de_array ($_POST);
     $erros = $usuario->erros();
     if ($usuario->login != '' && $usuario->login_existe()) {
+	$erros = $erros ? $erros : array ();
 	$erros ["login"] = "Este login já está sendo usado";
     }
     if ($_POST["senha2"] != $_POST["senha"]) {
@@ -19,7 +20,8 @@ if (isset ($_POST["enviar_usuario"])) {
 		 "para autorizar seu cadastramento definitivo <br>";
 	} else {
 	    msg_erro ("Erro ao incluir usuário");
-	    msg_erro (mysql_error());
+	    // msg_erro (mysql_error());
+		msg_erro(mysqli_error($conexao));
 	}
     } else {
 	form_usuario ("index.php?acao=cadastrar", $usuario, false, $erros);

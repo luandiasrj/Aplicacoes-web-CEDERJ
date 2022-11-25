@@ -11,8 +11,10 @@ class tabela_bd
 	$atribuicao = array();
 	$variaveis = get_object_vars($this);
 	// Itero sobre todas as variáveis de classe
-	while ($variavel = each($variaveis)) {
-	    $nome = $variavel["key"];
+	// while ($variavel = each($variaveis)) {
+	foreach ($variaveis as $variavel => $valor) {
+	    // $nome = $variavel["key"];
+		$nome = $variavel;
 	    if (isset ($this->$nome)) {
 		$atribuicao [] = $nome . "= '". addslashes($this->$nome) . "'";
 	    }
@@ -31,7 +33,9 @@ class tabela_bd
     function atualiza ($where) {
 	$consulta = $this->string_consulta_atualiza ().
 		    " where $where";
-	return mysql_query($consulta);
+	// return mysql_query($consulta);
+	global $conexao;
+	return mysqli_query($conexao, $consulta);
     }
 
     // Gera uma consulta do tipo insert para todas as variaveis da classe
@@ -44,7 +48,9 @@ class tabela_bd
     // Retorna o resultado da consulta mysql
     function inclui () {
 	$consulta = $this->string_consulta_inclui ();
-	return mysql_query($consulta);
+	// return mysql_query($consulta);
+	global $conexao;
+	return mysqli_query($conexao, $consulta);
     }
     
     
@@ -56,8 +62,10 @@ class tabela_bd
     function atribui_de_array ($array) {
 	$variaveis = get_object_vars($this);
 	// Itero sobre todas as variáveis do objeto
-	while ($variavel = each($variaveis)) {
-	    $nome = $variavel["key"];
+	// while ($variavel = each($variaveis)) {
+	foreach ($variaveis as $nome => $valor) {
+	    // $nome = $variavel["key"];
+		$nome = $nome;
 	    if (isset ($array[$nome])) {
 		$this->$nome = $array[$nome];
 	    }
@@ -70,9 +78,12 @@ class tabela_bd
     function atribui_a_array (&$array) {
 	$variaveis = get_object_vars($this);
 	// Itero sobre todas as variáveis do objeto
-	while ($variavel = each($variaveis)) {
-	    $nome = $variavel["key"];
-	    $array[$nome] = $variavel["value"];
+	// while ($variavel = each($variaveis)) {
+	foreach ($variaveis as $nome => $valor) {
+	    // $nome = $variavel["key"];
+		$nome = $nome;
+	    //$array[$nome] = $variavel["value"];
+		$array[$nome] = $valor;
 	}
     }
     
@@ -87,21 +98,25 @@ class tabela_bd
 	if ($expressao != '') $consulta .= " where " . $expressao;
 	if ($ordem != '') $consulta .= " order by " . $ordem;
 	// Obtenho uma linha do resultado caso exista
-	$resultado = mysql_query ($consulta);
+	// $resultado = mysql_query ($consulta);
+	global $conexao;
+	$resultado = mysqli_query ($conexao, $consulta);
 	if (!$resultado) return false;
-	$linha = mysql_fetch_array($resultado);
+	// $linha = mysql_fetch_array($resultado);
+	$linha = mysqli_fetch_array($resultado);
 	if (!$linha) return false;
 	// Preencho as variáveis da instância
 	$this->atribui_de_array ($linha);
 	return $resultado;
     }
     
-    // Carrega instância a partir de uma consulta feita anteriormente ao banco de dados, 
+ 	// Carrega instância a partir de uma consulta feita anteriormente ao banco de dados, 
     // Retorna o resultado da consulta se bem-sucedido ou false caso contrário.
     // $resultado = resultado de uma consulta mysql_query anterior.
     function busca_proximo (&$resultado) {
 	// Carrego mais uma linha
-	$linha = mysql_fetch_array($resultado);
+	// $linha = mysql_fetch_array($resultado);
+	$linha = mysqli_fetch_array($resultado);
 	if (!$linha) return false;
 	// Preencho as variáveis da instância
 	$this->atribui_de_array ($linha);
@@ -112,7 +127,9 @@ class tabela_bd
     // $expressao = expressao sql que identifica as linhas a serem removidas.
     function remove ($expressao) {
 	$consulta = "delete from ". get_class($this) . " where $expressao";
-	return mysql_query ($consulta);
+	// return mysql_query ($consulta);
+	global $conexao;
+	return mysqli_query ($conexao, $consulta);
     }
 }
 
@@ -127,12 +144,14 @@ class tabela_bd_com_id extends tabela_bd
     function inclui () {
 	$resultado = parent::inclui ();
 	if (!$resultado) return false;
-	$this->id = mysql_insert_id();
+	// $this->id = mysql_insert_id();
+	global $conexao;
+	$this->id = mysqli_insert_id($conexao);
 	return $resultado; 
     }
     
     // Remove registro corrente baseado no id
-    function remove () {
+    function remove ($expressao='') {
 	return parent::remove ("id = $this->id");
     }
 }

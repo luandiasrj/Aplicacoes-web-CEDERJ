@@ -10,7 +10,7 @@ function contembrancos(s)
       var c = s.value.charAt(i);
       if ((c==' ') || (c=='\n') || (c=='\t'))
       {
-         alert('O campo n„o deve conter espaÁos em branco');
+         alert('O campo n√£o deve conter espa√ßos em branco');
          return false;
       }
    }

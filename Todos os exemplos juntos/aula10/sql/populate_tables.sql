@@ -24,5 +24,5 @@ insert into possui values (6,8);
 insert into compras values (653,2,10,100,0);
 insert into itens values (1, "computador");
 insert into itens values (2, "teclado");
-insert into cliente values (1, "Jo„o", "nonono");
+insert into cliente values (1, "Jo√£o", "nonono");
 insert into cliente values (653, "Maria", "xoxoxo");

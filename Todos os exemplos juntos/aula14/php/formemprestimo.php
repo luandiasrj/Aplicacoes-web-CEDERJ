@@ -5,6 +5,11 @@ require_once ('htmlutil.php');
 // $acao = url que processa o formulário.
 // $default = array com defaults para os campos.
 function form_busca_emprestimo ($acao,$default) {
+  // Cria $usuario para receber os Dados do usuário
+  $usuario = new Usuario();
+  // Cria $default para receber os dados do livro
+  $default = array("titulo" => "", "autor" => "");
+  
 ?>
 <form method="post" action="<?=$acao?>" name="formbuscasolicitacao">
 <table class="formulario">

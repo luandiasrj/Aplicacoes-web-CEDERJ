@@ -40,11 +40,13 @@ elseif (isset($_POST["enviar_confirma_devolucao"])) {
     // Processo todos os emprestimos.
     foreach ($emprestimos as $indice=>$emprestimo) {
 	// Processo apenas os emprestimos cujo "checkbox" de confirmação foi ligado.
-	if ($_POST[$indice]) {
+	// if ($_POST[$indice]) {
+	if (isset($_POST[$indice])) {
 	    if (!$emprestimo->devolve()) {
 		// Um erro inesperado?
 		msg_erro ("Erro na realização da consulta");
-		msg_erro (mysql_error());
+		// msg_erro (mysql_error());
+		msg_erro(mysqli_error($conexao));
 	    } else {
 		// Imprimo o empréstimo
 		$n_emprestimos++;
