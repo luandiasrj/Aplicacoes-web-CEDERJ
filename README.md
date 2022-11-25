@@ -23,7 +23,7 @@ Após instalar o WampServer ou XAMPP, precisará criar um banco de dados chamado
 
 Após isso, você precisa copiar os arquivos do exemplo que você quer rodar para a pasta "www" do WampServer ou XAMPP.
 
-É importante ressaltar que é preciso abrir os arquivos na codificação *ISO-8859-1** para que os caracteres especiais não apareçam com códigos estranhos.
+É importante ressaltar que é preciso abrir os arquivos na codificação *ISO-8859-1* para que os caracteres especiais não apareçam com códigos estranhos.
 
 # Contribuindo
 Caso queira contribuir com esse repositório, basta realizar um fork e depois um _pull request_.
