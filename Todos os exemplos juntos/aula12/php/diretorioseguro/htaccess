@@ -1,0 +1,4 @@
+AuthType Basic
+AuthName "Diretorio Protegido"
+AuthUserFile /home/esperanc/public_html/aula12/diretorioseguro/senhas
+Require valid-user

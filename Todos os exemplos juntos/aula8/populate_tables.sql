@@ -1,0 +1,24 @@
+insert into cliente values (1, "Carlos Pereira", "Rua do Lavradio, 51 apto 903");
+insert into cliente values (2, "Geraldo da Silva", "Av Chile, 88");
+insert into cliente values (3, "Maria Xavier da Silva", "Av Chile, 88");
+insert into cliente values (4, "Antonio da Costa Cavalcanti", "Praca Sao Marcos, 5");
+insert into cliente values (5, "Francisca Emmanuel Xerxes", "Rua da Bica, 102 apto 901");
+insert into cliente values (6, "Jose Marcos do Nascimento", "Rua Rui Barbosa, 95 apto 201");
+insert into conta values (1, 2550.21);
+insert into conta values (2, 30015.12);
+insert into conta values (3, -210.23);
+insert into conta values (4, 9199.11);
+insert into conta values (5, 2.99);
+insert into conta values (6, -3002.00);
+insert into conta values (7, 873.04);
+insert into conta values (8, 1888.44);
+insert into possui values (1,1);
+insert into possui values (1,2);
+insert into possui values (2,3);
+insert into possui values (3,3);
+insert into possui values (3,4);
+insert into possui values (4,5);
+insert into possui values (5,6);
+insert into possui values (5,7);
+insert into possui values (6,8);
+

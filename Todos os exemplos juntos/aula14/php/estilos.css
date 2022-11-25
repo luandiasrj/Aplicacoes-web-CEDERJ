@@ -1,0 +1,126 @@
+   table.formulario {
+	border-collapse: collapse; 
+	text-align: left;
+   }
+   
+   table.formulario tr td {
+	border:1px solid rgb(0,0,0);
+	padding: 5px;
+    }
+	
+   table.formulario th {
+	border:1px solid rgb(0,0,0);
+	padding: 5px;
+	font-weight: bold;
+    }
+	
+   table.tabelabusca {
+	border-collapse: collapse; 
+   } 
+
+   table.tabelabusca tr td {
+	border:1px solid rgb(0,0,0);
+	padding: 5px;
+    }
+	
+   table.tabelabusca th {
+	border:1px solid rgb(0,0,0);
+	padding: 5px;
+	font-weight: bold;
+    }
+
+   table.exibe {
+	border: 0px; 
+   } 
+
+   table.exibe tr td {
+	border: 0px;
+	padding: 5px;
+	background-color: rgb(230,230,255);
+    }
+	
+   table.exibe th {
+	border: 0px;
+	padding: 5px;
+	font-weight: bold;
+	background-color: rgb(230,230,230);
+    }
+
+   .colunaPrincipal {
+	font-family: Arial,Helvetica,sans-serif;
+    color: rgb(0, 0, 102);
+	vertical-align: top;
+	}
+
+  .areaPrincipal {
+	margin:5px;
+	border:5px;
+	}
+
+  .botao {
+	margin: 5px;
+    color: rgb(0,0,102);
+	border: 1px solid rgb(50,50,50);
+	background-color: rgb(255, 255, 255);
+	font-family: Arial,Helvetica,sans-serif;
+	font-size: smaller;
+	font-weight: bold;
+	padding: 2px 5px;
+   }
+
+  .botao:hover {
+	background-color: rgb(150, 150, 150);
+	}
+	
+  .botao a { 
+	color: rgb(0,0,102);
+	text-decoration  : none;
+	}
+
+  .botao a:hover { 
+	color: rgb(255, 255,255);
+	text-decoration  : none;
+	}
+
+  .colunaMenu {
+	  width: 200px;
+	  background-color: rgb(0, 0, 102); 
+	  color: rgb(255, 255, 153);
+	  vertical-align: top;
+  }
+  
+  
+  .menu {
+	border-width: 1px 1px 1px 1px;
+	border-color: rgb(255,255,153);
+	border-style: solid;
+	margin-bottom: 5px;	
+    background-color: rgb(0, 0, 102);
+    }
+
+  .tituloMenu { margin: 1px;
+    padding: 5px;
+    font-family: Arial,Helvetica,sans-serif;
+    color: rgb(0, 0, 102);
+    background-color: rgb(255, 255, 153);
+    font-weight: bold;
+    }
+
+  .areaMenu { 
+	padding: 5px;
+    font-family: Arial,Helvetica,sans-serif;
+    color: rgb(255, 255, 153);
+    background-color: rgb(0, 0, 102);
+    }
+
+	
+  .areaMenu a { 
+	color: rgb(255, 255, 153);
+	text-decoration  : none;
+	}
+
+  .areaMenu a:hover { 
+	color: rgb(255,255,255);
+	text-decoration  : underline;
+	}
+

@@ -1,0 +1,18 @@
+<?php
+// Processamento do formulário de login
+require_once ('sessao.php');
+require_once ('autenticacao.php');
+$usuario = autentica ($_POST['login'], $_POST['senha']);
+if ($usuario) {
+    // Autenticação bem-sucedida -> redirecionar para página de boas vindas
+    $_SESSION['login']=$usuario->login;
+    $_SESSION['idusuario']=$usuario->id;
+    $_SESSION['privilegio']=$usuario->privilegio;
+    header("Location: index.php?acao=loginok");
+} else {
+    // Autenticação falhou -> redirecionar para página com mensagem 
+    // de erro
+    $_SESSION['privilegio']='I';
+    header("Location: index.php?acao=loginfalhou");
+}
+?>
