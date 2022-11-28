@@ -12,11 +12,14 @@ Os exemplos foram testados no WampServer 3.2.6.
 
 ## Playlist dos vídeos
 No link abaixo você encontra a playlist do curso contendo as vídeos aulas gravadas explicando como os exemplos funcionam.
+
 https://eduplay.rnp.br/portal/playlist/112280
 
 ## Como rodar os exemplos
 Para rodar os exemplos é preciso ter o WampServer ou XAMPP instalado em sua máquina. Você pode baixar o WampServer e XAMPP nos links abaixo:
+
 https://www.wampserver.com/en/
+
 https://www.apachefriends.org/pt_br/index.html
 
 Após instalar o WampServer ou XAMPP, precisará criar um banco de dados chamado "prog2" e importar os arquivos ".sql" que estão nas pastas "sql" de cada aula.
