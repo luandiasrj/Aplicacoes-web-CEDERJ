@@ -21,7 +21,7 @@ https://www.apachefriends.org/pt_br/index.html
 
 Após instalar o WampServer ou XAMPP, precisará criar um banco de dados chamado "prog2" e importar os arquivos ".sql" que estão nas pastas "sql" de cada aula.
 
-Após isso, você precisa copiar os arquivos do exemplo que você quer rodar para a pasta "www" do WampServer ou XAMPP.
+Após isso, você precisa copiar os arquivos do exemplo que você quer rodar para a pasta "www" do WampServer ou "htdocs" do XAMPP.
 
 É importante ressaltar que é preciso abrir os arquivos na codificação *ISO-8859-1* para que os caracteres especiais não apareçam com códigos estranhos.
 
